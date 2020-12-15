@@ -991,7 +991,7 @@ lapply1(X,function(x){return(x$p.value)},numeric(1))
 ## 1
 
 ```{r}
-library(StatComp20089)
+library(StatComp)
 
 sigma=1
 x_0=0

@@ -1,0 +1,264 @@
+---
+title: "第二次作业"
+documentclass: ctexart
+author: SA20017054 马逸铭
+   
+output:
+  rticles::ctex:
+    fig_caption: yes
+    number_sections: no
+    toc: no
+classoption: "hyperref"
+---
+
+ 
+ 
+## 2.1题
+
+### (1)
+
+plog-in估计根据定义可写为
+$$\hat{\theta}=T\left(F_{n}\right)=F_{n}(b)-F_{n}(a)$$
+
+### (2)
+
+根据定义可以得到
+$$
+\begin{aligned}
+I F(x ; T, F) &=\lim _{\epsilon \rightarrow 0} \frac{T\left((1-\epsilon) F+\epsilon \delta_{x}\right)-T(F)}{\epsilon} \\
+&=\left(\delta_{x}(b)-\delta_{x}(a)\right)-(F(b)-F(a)) \\
+&=\left\{\begin{array}{ll}
+F(a)-F(b) \quad & a, b<x \text { or } a, b \geq x \\
+F(a)-F(b)+1 \quad & a<x \leq b
+\end{array}\right.
+\end{aligned}
+$$
+同理可以得到经验分布函数的影响函数
+$$
+\begin{aligned}
+I F(x ; T, F_n) &=\lim _{\epsilon \rightarrow 0} \frac{T\left((1-\epsilon) F_n+\epsilon \delta_{x}\right)-T(F_n)}{\epsilon} \\
+&=\left(\delta_{x}(b)-\delta_{x}(a)\right)-(F_n(b)-F_n(a)) \\
+&=\left\{\begin{array}{ll}
+F_n(a)-F_n(b) \quad & a, b<x \text { or } a, b \geq x \\
+F_n(a)-F_n(b)+1 \quad & a<x \leq b
+\end{array}\right.
+\end{aligned}
+$$
+
+### (3)
+
+可以考虑$T(F)= \int I_{(a, b]}(x)d F(x)$,
+那么根据课件二15，16页的内容，有$$\hat{\tau^2}\rightarrow\tau^2,\hat{se}/se\rightarrow1$$其中$se=\sqrt{Var(T(F_n))},\hat{se}=\hat{\tau}/\sqrt{n}$。所以我们把$\hat{se}$看作是$se$的估计：
+$$
+\hat{se}=
+\frac{\sqrt{\sum_{i=1}^{n}\left[I_{(a, b]}\left(X_{i}\right)+F_{n}(a)-F_{n}(b)\right]^{2}}}{n}
+$$
+
+### (4)
+
+$$
+\begin{aligned}
+\because \sqrt{n}(T(F)-T(F_n))\rightarrow N(0,\tau^2)\\
+\therefore \frac{T(F)-T(F_n)}{\hat{se}} \rightarrow N(0,1)
+\end{aligned}
+$$
+所以可以写出$\theta$置信区间为$F_n(b)-F_n(a)\pm z_{a/2}\hat{se}$,其中$\hat{se}$为(1)中定义。
+
+## 2.2题
+
+### (1)
+
+令$F_t = (1-t)F+t \delta_x$,即有$1-t$的概率分布是$F$,$t$的概率是$\delta_x$写出影响函数
+$$
+\begin{aligned}
+I F(x ; T, F) &=\lim _{t \rightarrow 0}\left[\frac{T\left(F_{t}\right)-T(F)}{t}\right] \\
+&=\lim _{t \rightarrow 0}\left[\frac{E_{F_{t}}\left|X-X^{\prime}\right|-E_{F}\left|X-X^{\prime}\right|}{t}\right] \\
+&=\lim _{t \rightarrow 0}\left\{\frac{1}{t}\left[(1-t)^{2} E_{F}\left|X-X^{\prime}\right|+2 t(1-t) E_{F}|X-x|+t^{2} \times 0-E_{F}\left|X-X^{\prime}\right|\right]\right\} \\
+&=\lim _{t \rightarrow 0}\left\{\frac{(t^2-2t)E_F|X-X^{\prime}|+2t(1-t)E_F|X-x|}{t}\right\}\\
+&=(t-2)E_F|X-X^{\prime}|+2(1-t)E_F|X-x|
+\end{aligned}
+$$
+
+### (2)
+
+假设$X_1,X_2,.....,X_n\quad iid \sim F$,那么有
+$$
+\begin{aligned}
+T(F_n)&=E_{F_n}|X-X^{\prime}|\\
+&=\frac{1}{n^2} \sum_{1\leq i,j \leq n}{|X_i-X_j|}\\
+&=\frac{1}{n^2} \sum_{i \neq j}{|X_i-X_j|}
+\end{aligned}
+$$
+可以将$E|X-X^{\prime}|$写成线性泛函的形式
+$$
+E|X-X^{\prime}|= \int_{-\infty}^{+\infty} \int_{- \infty}^{x}|x-x^{\prime}|dF(x^{\prime})dF(x)
+$$
+所以$a(x)=\int_{- \infty}^{x}|x-x^{\prime}|dF(x^{\prime})$,根据课件二15页可知，
+记$\tau^2=\int (a(x)-T(F))^2dF(x)$,那么有
+$$
+\sqrt{n}(T(F)-T(F_n))\rightarrow N(0,\tau^2)
+$$
+
+
+## 2.3题
+
+### (1)
+
+均值可以写成线性泛函$T(F)= \int xdF$,那么就可以定义$F_\epsilon$
+$$
+\begin{aligned}
+T\left(F_{\epsilon}\right)&=\int u d\left((1-\epsilon) F+\epsilon \delta_{x}\right)\\
+&=(1-\epsilon) T(F)+\epsilon x\\
+\because
+b(\epsilon)&=sup_x|T(F)-T(F_{\epsilon})|\\
+&=sup_x|\epsilon T(F) -\epsilon x|
+\end{aligned}
+$$
+所以对于任意$\epsilon$,$b(\epsilon)$都是无穷大，所以崩溃点$\epsilon^*=0$
+
+### (2)
+
+定义$T(F)=M(X)$其中$M$是求中位数的函数。那么可以得到
+$$
+T(F_\epsilon)=M((1-\epsilon)F+\epsilon \delta_x)\\
+$$
+因为 $T(F)$ 是一个常数，所以如果 $b(\epsilon)= \infty$当且仅当 $sup_x|T(F_\epsilon)| = \infty$ ,现在假设 $m$ 是 $F_\epsilon$ 的中位数点，那么就会有下面两式
+$$
+\begin{aligned}
+&(1-\epsilon) F(m)+\epsilon \delta_{x}(m) & \geq 0.5 \\
+&(1-\epsilon) F(m-0)+\epsilon \delta_{x}(m-0) & \leq 0.5
+\end{aligned}
+$$
+所以当$\epsilon \textgreater 0.5$
+时，如果$m \textless x$，
+那么有$(1-\epsilon) F(m) \textless 0.5$矛盾，所以$m \geq x$,所以有$b(\epsilon)=\infty$.  
+如果$\epsilon \textless 0.5$,通过简单推算就可以得到
+$$
+\begin{aligned}
+&F(m) \geq \frac{0.5-\epsilon}{1-\epsilon}\\
+&F(m-0) \leq \frac{0.5}{1-\epsilon}
+\end{aligned}
+$$
+这说明$m$有一个和$x$无关的界限和$\epsilon$有关的界限。所以$b(\epsilon) \textless \infty$.  
+综上，可以知道中位数的崩溃点$\epsilon^*=0.5$
+
+## 2.4题
+
+### (1)
+
+因为$\theta$是一个线性泛函，所以可以利用课件二15页的结论，所以有影响函数
+$$
+I F(x ; \theta, F)=\log (x)-\theta
+$$
+经验影响函数是
+$$
+I F(x ; \theta, F_n)=\log (x)-\frac{1}{n}\sum_{i=1}^n{logX_i}
+$$
+$\lambda$可视作线性泛函$\mu$的一个复合，所以运用链式法则，可以得到
+$$
+I F(x ; \lambda, F)=\frac{1}{\mu } I F(x ; \mu, F)=\frac{1}{\mu}(x-\mu)
+$$
+令$\hat{\mu}=\frac{1}{n}\sum_{i=1}^nX_i$可以得到经验影响函数
+$$
+ I F\left(x ; \lambda, F_{n}\right)=\frac{1}{\hat{\mu}}(x-\hat{\mu})
+$$
+
+### (2)
+
+$\hat{\theta}$和$\hat{\lambda}$都是plug-in估计，所以当$n \rightarrow \infty$时，都会收敛到$\hat{\theta}$和$\hat{\lambda}$，用詹森不等式考虑$\hat{\theta},\hat{\lambda}$,可以知道除非$X$是一个几乎处处是常数的随机变量。所以$\hat{\theta}$和$\hat{\lambda}$极限除了在$X$是一个a.s常数的随机变量的情况下，他们的极限不同。  
+(3)
+
+因为$log (x)$可趋于无穷，易知cross error sensitivity$\gamma_{\theta}^{*}=\gamma_{\lambda}^{*}=\infty$。 
+可以计算Local shift sensitivity$$
+\begin{aligned}
+&\lambda_{\theta}^{*}=\sup _{0<x<y} \frac{\log (y)-\log (x)}{y-x}=\infty\\ &\lambda_{\lambda}^{*}=\frac{1}{\mu}
+\end{aligned}
+$$
+所以$\theta$对于local shift sensitivity更加地敏感。
+
+## 3.1题
+
+注意到 $X^*_i$ 是 iid Unif(X_1,X_2,...,X_n),所以
+$$
+\begin{array}{l}
+E\left(X_{1}^{*} \mid X_{1}, \ldots, X_{n}\right)=\frac{1}{n} \sum_{i} X_{i}:=\bar{X} \\
+E\left(X_{1}^{* 2} \mid X_{1}, \ldots, X_{n}\right)=\frac{1}{n} \sum X_{i}^{2}:=\overline{X^{2}}
+\end{array}
+$$
+因此
+$$
+\begin{aligned}
+Var(\overline{X^*}|X_1,X_2,X_3,....X_n)&=\frac{1}{n}Var({X^*}|X_1,X_2,X_3,....X_n)\\
+&=\frac{1}{n}[E({X^*}^2|X_1,X_2,X_3,....X_n)-(E\left(X_{1}^{*} \mid X_{1}, \ldots, X_{n}\right))^2 ]\\
+&=\frac{1}{n}(\overline{X^2}-(\overline{X})^2)
+\end{aligned}
+$$
+然后求$E(\overline{X^*})$,考虑到条件期望的性质，所以有
+$$
+\begin{aligned}
+E\left(\overline{X^*}\right)&=E\left[E\left(\overline{X^*} \mid X_{1}, \ldots, X_{n}\right)\right]\\&=E(\overline{X})\\&=E X
+\end{aligned}
+$$
+对于$Var(\overline{X^*})$来说，可以考虑他的值是条件期望的方差与条件方差的期望之和。所以有
+$$
+\begin{aligned}
+\operatorname{Var}\left(\overline{X^*}\right)&=\operatorname{Var}\left[E\left(\overline{X^*}\mid X_{1}, \ldots, X_{n}\right)\right]+E\left[\operatorname{Var}\left(\overline{X^*} \mid X_{1}, \ldots, X_{n}\right)\right]\\
+&=\frac{1}{n}Var(X)+\frac{1}{n}[E(\frac{\sum X_i^2}{n})-E((\frac{\sum X_i}{n})^2)]\\
+&=\frac{1}{n} \operatorname{Var}(X)+\frac{1}{n} \frac{n-1}{n} \operatorname{Var}(X)\\
+&=\frac{2 n-1}{n^{2}} \operatorname{Var}(X)
+\end{aligned}
+$$
+
+## 3.2题
+
+### (1)
+
+```{r}
+library(bootstrap)
+t <- eigen(cov(scor))$values
+t_hat <- t[1]/sum(t)
+B <- 200
+
+# Bootstrap方法
+f <- function(i){
+  x <- scor[i,]
+  t <- eigen(cov(x))$values
+  t_hat <- t[1]/sum(t)
+  return(t_hat)
+}
+results_b <- bootstrap(1:nrow(scor),B,f)
+t_b <- results_b$thetastar
+bias_boot <- mean(t_b)-t_hat
+se_boot <- sd(t_b)
+cat("bootstrap方法的偏差和标准差估计为",bias_boot,se_boot)
+# Jackknife方法
+m<-nrow(scor)
+t_j <- 1:m
+for (i in 1:m) {
+  x <- scor [-i,]
+  t <- eigen(cov(x))$values
+  t_j[i] <- t[1]/sum(t)
+}
+bias_jack <- (m-1)*(mean(t_j)-t_hat)
+se_jack <- sqrt(((m-1)/m) * sum((t_j -mean(t_j))^2))
+cat("jackknife方法的偏差和标准差估计为",bias_jack,se_jack)
+```
+
+### (2)
+
+```{r}
+library("boot")
+f <- function(dat, i){
+x <- dat[i,]
+t <- eigen(cov(x))$values
+r <- t[1] / sum(t)
+return(r)
+}
+bootstrap_result <- boot(
+data = cbind(scor$mec, scor$vec, scor$alg, scor$ana, scor$sta),
+statistic = f, R = B)
+boot.ci(boot.out = bootstrap_result, conf = 0.95, type = c("perc",
+"bca"))
+```
+
+

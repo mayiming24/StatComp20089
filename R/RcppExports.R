@@ -13,6 +13,6 @@
 #' }
 #' @export
 cla <- function(a, xx, N) {
-    .Call('_StatComp_cla', PACKAGE = 'StatComp', a, xx, N)
+    .Call('_StatComp20089_cla', PACKAGE = 'StatComp20089', a, xx, N)
 }
 

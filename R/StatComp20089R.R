@@ -1,8 +1,8 @@
 #' @title Rcpp functions.
 #' @name test
-#' @description Use Rcpp
+#' @description just for test Rcpp function
 #' @importFrom Rcpp evalCpp
-#' @useDynLib StatComp
+#' @useDynLib StatComp20089
 #' @examples
 #' \dontrun{
 #' cla(1,2,12)
@@ -64,3 +64,41 @@ nkesplot<- function(y,N,h){
   ye <- ye / (2*h*n)
   plot(x,ye,type = 'l',ylab = 'density')
 }
+#' This is some descriptio of this function.
+#' @title plot naive two demesions product kenel estimate
+#'
+#' @description plot naive two demesions product kenel estimate
+#'
+#' @details plot the pic of two demesions product kenel estimate with specified bandwith and selected number of estimated points.
+#'
+#' @param x is sample data and x must be a n rows 2colums matrix
+#' @param h1 the bandwith of col1
+#'
+#' @param h2 the bandwith of col2
+#' @param N1 the width of estimate of col1
+#'
+#' @param N2 the width of estimate of col2
+#' @return a pic
+#'
+#' @examples  \dontrun{
+#' n2kesplot(as.matrix(faithful),0.5,3,200,200)
+#' }
+#' @export
+n2kesplot<- function(x,h1,h2,N1,N2){
+  n <- nrow(x)
+  x1<-sort(x[,1])
+  x2<-sort(x[,2])
+  xe<- numeric(N1)
+  ye<- numeric(N2)
+  xranges<- seq(x1[1],x1[length(x1)],length.out = N1)
+  yranges<- seq(x2[1],x2[length(x2)],length.out = N2)
+  for (i in 1:N1) {
+    xe[i]<- sum(abs(x[,1]-rep(xranges[i],n))/h1 <1)/(n*h1)
+  }
+  for (i in 1:N2) {
+    ye[i]<- sum(abs(x[,2]-rep(yranges[i],n))/h2 <1)/(n*h2)
+  }
+  esti_mult<- xe%*%t(ye)
+  persp(xranges,yranges,esti_mult,phi = 20,theta = 30, col = "gray",border = 1)
+}
+

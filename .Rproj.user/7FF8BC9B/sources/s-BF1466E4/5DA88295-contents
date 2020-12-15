@@ -1,0 +1,27 @@
+---
+title: "kenel estimate"
+author: "Yiming Ma"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{homework}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+由给定样本点集合求解随机变量的分布密度函数问题是概率统计学的基本问题之一。解决这一问题的方法包括参数估计和非参数估计。那么在给定一定样本点怎么去估计密度是一个很常见的问题，自然的想法就是就是对于每个点划分区间，通过区间里的点来估计密度，那么选取最简单的示性函数，就可以得到简单核密度估计，在包里对应的是nkes函数，输入一维样本后，输入带宽和要估计的点就可以得到该点的密度估计
+
+```{r}
+nkes(faithful$eruptions,0.5,3)
+```
+
+为了可视化，编写了画出密度函数nkesplot,其中y是样本，N是估计点的个数，这些点均匀分布在样本点所在区间，h是带宽。下面是例子。
+```{r}
+nkesplot(faithful$eruptions,200,1)
+```
+同样的对于多维数据，也可以推广，可以分别对分量的估计做乘积，作为估计，其中x是样本数据，是n行2列的矩阵，h1和h2是带宽，N1和N2是估计点的数量，
+```{r}
+n2kesplot(as.matrix(faithful),0.5,3,200,200)
+```
+
+

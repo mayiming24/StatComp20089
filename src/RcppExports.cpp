@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // cla
 NumericVector cla(double a, double xx, int N);
-RcppExport SEXP _StatComp_cla(SEXP aSEXP, SEXP xxSEXP, SEXP NSEXP) {
+RcppExport SEXP _StatComp20089_cla(SEXP aSEXP, SEXP xxSEXP, SEXP NSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -20,11 +20,11 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
-    {"_StatComp_cla", (DL_FUNC) &_StatComp_cla, 3},
+    {"_StatComp20089_cla", (DL_FUNC) &_StatComp20089_cla, 3},
     {NULL, NULL, 0}
 };
 
-RcppExport void R_init_StatComp(DllInfo *dll) {
+RcppExport void R_init_StatComp20089(DllInfo *dll) {
     R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
     R_useDynamicSymbols(dll, FALSE);
 }

@@ -1,0 +1,17 @@
+[
+    {
+        "file": "D:/R/StatComp20089/src/StatComp20089C.cpp",
+        "file_last_write": 1608006424.0,
+        "definitions": [
+            {
+                "usr": "c:@F@cla#d#d#I#",
+                "kind": 6,
+                "parent_name": "",
+                "name": "cla(double, double, int)",
+                "file": "D:/R/StatComp20089/src/StatComp20089C.cpp",
+                "line": 16,
+                "column": 15
+            }
+        ]
+    }
+]

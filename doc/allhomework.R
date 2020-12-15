@@ -1,65 +1,21 @@
----
-title: "All my homework"
-author: "Yiming Ma"
-date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{homework}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
----
-# 9.22
-
-## Example 1
-```{r}
+## -----------------------------------------------------------------------------
 x<-runif(10,1,10)
 y<-runif(10,2,6)
 plot(x,y,xlab = "ten random values",ylab = "ten other random values",bg="blue",pch=22)
-```
 
-
-## Example 2
-
-```{r}
+## -----------------------------------------------------------------------------
 tab <- readxl::read_excel("C:/rlearn/生产总值.xls",sheet=1)
 knitr::kable(tab)
-```
-这是季度生产总值和产业结构的表格，数据来自中宏数据库
 
-## Example 3
-
-
-如果我们定义风险的市场价格为
-  $$
-  \Theta(t)=\frac{\alpha(t)-R(t)}{\sigma(t)}
-  $$
-在Girsanov Thearem中取$L_{t} =-\int_{0}^{t} \Theta(u) d W(u)$ ，因为
-$$
-\langle \Theta \cdot W,\Theta \cdot W \rangle =\Theta^{2}\cdot\langle W,W\rangle 
-$$
-那么得到
-   $$
-  Z_{t}=\mathscr{E}(L) =\exp \left(L_{t}-\frac{1}{2}\langle L, L\rangle_{t}\right)
-  =\exp \left\{-\int_{0}^{t} \Theta(u) d W(u)-\frac{1}{2} \int_{0}^{t} \Theta^{2}(u) d u\right\}
-  $$
-
-# 9.29
-
-## Exercise 3.3
-```{r}
+## -----------------------------------------------------------------------------
 n<-5000
 u<-runif(n)
 x<-2/(sqrt(1-u))
 hist(x,breaks=100,prob=TRUE,xlim=c(0,40),main = expression(f(x)==8*x^-3))
 y<-seq(0,100,.1)
 lines(y,8*y^-3,col="red")
-```
 
-通过比较频率直方图和密度图发现基本吻合
-
-
-## Exercise 3.8 3.9
-```{r}
+## -----------------------------------------------------------------------------
 f<-function(){
 u1<-runif(1,min = -1,max = 1)
 u2<-runif(1,min = -1,max = 1)
@@ -69,11 +25,8 @@ x<-1
     {x=u2}else
     x=u3
 }
-```
 
-以上定义了一个生成符合分布抽样函数，下面通过该函数生产大模拟样本直方图
-
-```{r}
+## -----------------------------------------------------------------------------
 x<-1:50000
 for (i in 1:50000) {
   x[i]=f()
@@ -82,63 +35,15 @@ for (i in 1:50000) {
 hist(x,prob=TRUE,breaks = 90,main = expression(f(x)==0.75*(1-x^2)))
 y<-seq(-1,1,0.1)
 lines(y,0.75*(1-y^2),col="red")
-```
 
-发现密度曲线和大模拟样本直方图比较接近，可以认为该算法符合密度函数。
-
-
-## Exercise 3.9
-证明：
-我们假定输出结果为一个新的随机变量$U$，现在即要证明$\textit{P}(U=x)=\frac{3}{4}\left(1-x^{2}\right)$,将该算法各种情况分开考虑
-$$
-\begin{align}\textit{P}(U=x)&=\textit{P}(U_2=x,|U_3|\ge|U_2|,|U_3|\ge|U_1|)+\textit{P}(U_3=x,|U_3| < |U_2|,|U_3|\ge|U_1|)\\
-&+\textit{P}(U_3=x,|U_3|\ge|U_2|,|U_3|<|U_1|)+\textit{P}(U_3=x,|U_3|<|U_2|,|U_3|<|U_1|)\\&=0.25(1-x^2)+0.25(1-x)^2+0.25(1-x)^2+|x|(1-|x|)\\&=0.75(1-x^2)
-\end{align}
-$$
-
-#10.13
-
-## 5.1
-考虑是$g(x)=\frac{\pi}{3}sinx$对于$[0,\frac{\pi}{3}]$上的均匀分布的期望
-```{r}
+## -----------------------------------------------------------------------------
 set.seed(12345)
 m<- 1e5
 x<- runif(m,min=0,max= pi/3)
 M<- mean(sin(x))*pi/3
 print(c(M,1-cos(pi/3)))
-```
-这说明蒙特卡洛估计和积分的精确值很接近。
 
-
-## 5.6
-可以计算得到如下结果
-$$
-\begin{align}
-Cov(e^{U},e^{1-U})&=E(e^U*e^{1-U})-E(e^U)*E(e^{1-U})\\
-&=E(e)-(E(e^U))^2\\
-&=e-(e-1)^2\\
-&=3e-e^2-1
-\end{align}
-$$
-$$
-\begin{align}
-Var(e^U+e^{1-U})&=E[(e^U+e^{1-U})^2]-(E(e^U+e^{1-U}))^2\\
-&=E(e^{2U}+2e^U*e^{1-U}+e^{2(1-U)})-(2*E(e^U))^2\\
-&=e^2-1+2e-(2(e-1))^2\\
-&=10e-3e^2-5
-\end{align}
-$$
-$$
-\begin{align}
-Var(e^U)&=E(e^{2u})-(E(e^U))^2\\
-&=2e-0.5e^2-1.5
-\end{align}
-$$
-则可以计算出理论上可以减少的方差比率为$1-\frac{\frac{1}{4}Var(e^U+e^{1-U})}{Var(e^U)}=0.9838$
-
-## 5.7
-
-```{r}
+## -----------------------------------------------------------------------------
 set.seed(2333)
 m1<- 2000000
 m2<- 2000000
@@ -152,38 +57,16 @@ V1<- var(X_1)
 V2<- var(Y_1)
 cat("这是简单蒙特卡洛方法的结果和方差:",M1,V1)
 cat("这是采用对偶变量的方法的结果和方差:",M2,V2)
-```
-可以计算出模拟得到的消除方差比率为0.9838。这和理论值非常吻合
 
-## 5.11
-假设$\hat{\theta_1}$和$\hat{\theta_2}$是$\theta$的两个无偏估计，那么易知$\hat{\theta_c}=\hat{\theta_1}+(1-c)\hat{\theta_2}$也是一个无偏估计量。那么他的方差可以计算得到
-$$
-\begin{align}
-Var(\hat{\theta_c})&=Var(\hat{\theta_2})+c^2Var(\hat{\theta_1}-\hat{\theta_2})+2cCov(\hat{\theta_2},\hat{\theta_1}-\hat{\theta_2})
-\end{align}
-$$
-这是一个关于$c$的二次函数，开口向上，所以选取$c$取值为对称轴时取值最小。即
-$$
-c^*=-\frac{Cov(\hat{\theta_2},\hat{\theta_1}-\hat{\theta_2})}{Var(\hat{\theta_1}-\hat{\theta_2})}
-$$
-
-# 10.20
-
-## 5.13 
-
-首先先画出$g(x)$的图象
-```{r}
+## -----------------------------------------------------------------------------
 x<- seq(1.05,3,.01)
 g<- function(x){
   ((x^2)*exp(-0.5*x^2))/((2*pi)^0.5)*(x>1)
 }
 y<- g(x)
 plot(x,y,lwd=2,type = "l")
-```
 
-
-推测正态分布和参数是3的卡方分布是比较好的重要函数
-```{r}
+## -----------------------------------------------------------------------------
 set.seed(123)
 zt<- rnorm(500000,0,1)
 kf<- rchisq(500000,3)
@@ -196,13 +79,8 @@ se2<- sd(fg_2)
 cat("重要函数取正态分布的结果和标准差:" ,g1 ,se1)
 cat("重要函数取卡方分布的结果和标准差:" ,g2 ,se2)
 print(integrate(g,1,Inf)) #这是标准的结果
-```
-综上，发现用卡方分布做重要函数是比较好的，结果准确且方差小。
 
-## 5,15
-
-考虑密度函数为$f(x)=\frac{5e^{-x}}{1-e^{-1}}$,那么考虑五个等概率的区间，分别对五个区间进行重要抽样相加就是估计值，方差是各部分的方差相加
-```{r}
+## -----------------------------------------------------------------------------
 g1<- function(x){
   (exp(-x)/(1+x^2))*(x>0)*(x<1)
 }
@@ -218,14 +96,8 @@ for (i in 1:5) {
 cat("分层重要抽样的结果是:",sum(result[,1])) 
 cat("分层重要抽样的方差是:",sum(result[,2]))
 print(integrate(g1,0,1)) #求一个积分的标准值
-```
-通过比较发现，分层重要抽样无论是结果还是方差都要更优。
 
-## 6.4
-
-先从参数为0；1的对数正态分布中抽样，再计算$\mu$理论上95%的置信区间,再计算这些区间包含
-0的频率，和95%进行比较。
-```{r}
+## -----------------------------------------------------------------------------
 w<- 0
 n<- 20
 alpha<- 0.05
@@ -238,12 +110,8 @@ for (i in 1:10000) {
   if(s[i,2]>0 & s[i,1]< 0) t<-t+1
 }
 t/10000
-```
-发现构造的置信区间的置信系数比较吻合理论。
 
-## 6.5
-
-```{r}
+## -----------------------------------------------------------------------------
 w1<- 0
 n1<- 20
 alpha<- 0.05
@@ -256,24 +124,16 @@ for (i in 1:10000) {
   if(s[i,2]>2 & s[i,1]< 2) t<-t+1
 }
 t/10000
-```
-发现相比样本来自正态分布的置信系数低一些，但是相比书上方差区间的0.773，没有方差那么敏感，更稳定一些。
 
-# 10.27
-
-## 6.7
-首先我么定义求样本偏度的函数
-```{r}
+## -----------------------------------------------------------------------------
 sk<- function(x){
   xbar<- mean(x)
   m3<- mean((x-xbar)^3)
   m2<- mean((x-xbar)^2)
   return(m3/m2^1.5)
 }
-```
-下面循环MC模拟求不同参数下的分布的$\alpha1=\alpha2=\alpha$的beta分布的犯第一类错误，置信水平此时固定为0.05
 
-```{r}
+## -----------------------------------------------------------------------------
 a<- 0.05
 n<- 30
 m<- 2000
@@ -293,11 +153,8 @@ for (i in 1:N) {
 }
 plot(alpha,pwrbeta,type = "l",xlim = c(0,20),ylim = c(0,0.06))
 abline(h=0.05,col="blue")
-```
 
-现在对对称的t分布进行模拟
-
-```{r}
+## -----------------------------------------------------------------------------
 v<- seq(1,100,1)
 M<- length(v)
 pwrt<- numeric(M)
@@ -312,32 +169,20 @@ for (i in 1:M) {
 }
 plot(v,pwrt,type = "l",ylim = c(0,0.5))
 abline(h=0.05,col="blue")
-```
 
-可以发现对于beta分布，参数越大，检验反第一类错误的可能性是越大的,可以画出不同参数的beta图象，其中红色的是正态分布作为对比，这是因为参数越大，越接近一个正态分布。所以由正态分布推出的检验的会在在参数越大时越接近置信系数。
-
-```{r}
+## -----------------------------------------------------------------------------
 curve(dbeta(x, 2, 2), from = 0, to = 1)
 curve(dbeta(x, 4, 4), from = 0, to = 1)
 curve(dbeta(x, 16, 16), from = 0, to = 1)
 curve(dnorm(x,0.5,0.1),from =0,to =1,col="red")
-```
 
-同样的画出不同参数t分布的密度函数图象,其中红色是正态分布作为对比
-
-```{r}
+## -----------------------------------------------------------------------------
 curve(dt(x,1),from = -4,to =4)
 curve(dt(x,2),from = -4,to =4)
 curve(dt(x,16),from = -4,to =4)
 curve(dnorm(x),from = -4,to =4,col="red")
-```
 
-同样的，发现t分布在参数越大时越接近正态分布，所以同样的功效会接近置信系数。
-
-## 6.8
-
-先定义count5检验的函数，输出值1代表认为拒绝等方差，0则相反。
-```{r}
+## -----------------------------------------------------------------------------
 count5test<- function(x,y){
   X<- x-mean(x)
   Y<- y-mean(y)
@@ -345,9 +190,8 @@ count5test<- function(x,y){
   outy<- sum(Y>max(X))+sum(Y<min(X))
   return(as.integer(max(c(outy,outx))>5))
 }
-```
-由数理统计知识，我们指导F检验对于两个正态分布进行等方差检验是一个很好的方法，下面定义F检验函数
-```{r}
+
+## -----------------------------------------------------------------------------
 Ftest<- function(x,y){
   xl<- length(x)
   yl<- length(y)
@@ -356,12 +200,8 @@ Ftest<- function(x,y){
   T<- sy/sx
   return(as.integer(T<qf(0.055/2,xl-1,yl-2)|T>qf(1-0.055/2,xl-1,yl-1)))
 }
-```
-那么接下来对不同大小样本分布进行count5和F检验。
 
-### 小样本
-
-```{r}
+## -----------------------------------------------------------------------------
 n1<-10
 rnum<-2000
 sig1<- 1
@@ -381,11 +221,8 @@ minpowerF<-mean(replicate(rnum,expr = {
 )
 cat("这是小样本count5检验的功效",minpowercount5)
 cat("这是小样本F检验的功效",minpowerF)
-```
 
-### 中样本
-
-```{r}
+## -----------------------------------------------------------------------------
 n2<-30
 rnum<-2000
 sig1<- 1
@@ -405,10 +242,8 @@ midpowerF<-mean(replicate(rnum,expr = {
 )
 cat("这是中样本count5检验的功效",midpowercount5)
 cat("这是中样本F检验的功效",midpowerF)
-```
 
-### 大样本
-```{r}
+## -----------------------------------------------------------------------------
 n3<-100
 rnum<-200
 sig1<- 1
@@ -428,18 +263,8 @@ maxpowerF<-mean(replicate(rnum,expr = {
 )
 cat("这是中样本count5检验的功效",maxpowercount5)
 cat("这是中样本F检验的功效",maxpowerF)
-```
-这说明F检验的功效函数样本数量越大功效增长越快。
 
-## 6.C
-
-因为多元偏度统计量为
-$$
-b_{1, d}=\frac{1}{n^{2}} \sum_{i, j=1}^{n}\left(\left(X_{i}-\bar{X}\right)^{\mathrm{T}} \widehat{\Sigma}^{-1}\left(\left(X_{j}-\bar{X}\right)\right)^{3}\right.
-$$
-且指导它在正态假设下会满足自由度为$t=\frac{1}{6}d(d+1)(d+2)$的卡方分布。所以对于大小为n=10，30，50，100，500的样本，计算出临界值为$(\frac{6}{n}X_t^2(0.975),\frac{6}{n}X_t^2(0.025))$,即当多元偏度值超过这个范围，即拒绝偏度为零的假设。下面计算
-
-```{r}
+## -----------------------------------------------------------------------------
 n=c(10,20,30,50,100)
 cv<- matrix(0,5,2)
 cv[,2]<- (6/n)*qchisq(0.975,4)
@@ -447,10 +272,8 @@ cv[,1]<- (6/n)*qchisq(0.025,4)
 cv<-data.frame(cv,row.names = c(10,20,30,50,100))
 colnames(cv)<- c("l","r")
 cv
-```
 
-下面定义计算多维样本偏度统计量的计算函数
-```{r}
+## -----------------------------------------------------------------------------
 library(MASS)
 msk<- function(x){#x是一个n*d的矩阵，代表n个d维样本
   n=nrow(x)
@@ -465,9 +288,8 @@ msk<- function(x){#x是一个n*d的矩阵，代表n个d维样本
   }
   return(n2bd/(n^2))
 }
-```
 
-```{r}
+## -----------------------------------------------------------------------------
 n<-c(10,20,30,50,100)
 pM<- 1:5
 Sigma <- matrix(c(1,0,0,1),2,2)
@@ -483,10 +305,8 @@ for (i in 1:5) {
   pM[i]<- mean(msktests)
 }
 cat("这是对应的模拟置信系数",pM)
-```
 
-下面对污染的多元正态分布的参数，计算多元偏度卡方检验的功效。
-```{r}
+## -----------------------------------------------------------------------------
 n<-30
 m<-200
 Sigma <- matrix(c(1,0,0,1),2,2)
@@ -516,36 +336,13 @@ for (i in 1:el) {
 }
  plot(epsilon,mskpwr,type = "l",ylim = c(0,0.5))
  abline(h= 0.1,col="blue")
-```
-可以发现，在$\epsilon$等于0或者1时，是很接近预先设定的0.1置信系数，这是因为在0或1时，是一个标准正态。
 
-## Disscusion
-
-$$
-\frac{\sum_{i=1}^{n}X_i-np}{\sqrt{n}(1-p)p}\rightarrow N(0,1)
-$$
-因为这是大样本，所以将样本方差代替总体方差，分别对两组数据进行中心化近似，化简可以得到
-$$
-p1-p2 \~{} N(\sum(X_i-Y_i),\frac{S_x^2+S_y^2}{n})
-$$
-```{r}
+## -----------------------------------------------------------------------------
 #所以进行检验，发现其0.95的置信区间为
 S<- (0.651*(1-0.651)+(1-0.676)*0.676)/10000
 cat(qnorm(0.025,0.025,S),qnorm(0.975,0.025,S))
-```
-发现0不在里面，在0.05的水平上可以拒绝功效相同的原假设。
 
-1.H0就是两种检验功效相等
-
-2.大样本利用中心极限定理进行正太化近似，然后进行两正态分布的均值检验
-
-3.因为MC检验法实际上已经在此功效下的二项分布抽样，所以题目已知数据已经足够。
-
-# 11.3
-
-## 7.1
-
-```{r}
+## -----------------------------------------------------------------------------
 library(boot)
 library(bootstrap)
 corhat<- cor(law$LSAT,law$GPA)
@@ -559,19 +356,8 @@ for (i in 1:n) {
 corbias<- (n-1)*(mean(corjack)-corhat)
 se<- sqrt((n-1)*mean((corjack-mean(corjack))^2))
 cat("This is jacknife's bias and standard error:",corbias,se)
-```
 
-## 7.5
-we can easily to obtain the MLE of $\lambda$
-$$
-\begin{aligned}
-&\because f(x_1,x_2,...,x_n)=\lambda^ne^{-\lambda\sum_{i=1}^nx_i}\\
-&\therefore lnf=nln\lambda-\lambda\sum_{i=1}^n x_i\\
-& \therefore \frac{\partial lnf}{\partial \lambda}= \frac{n}{\lambda}-\sum_{i=1}^nx_i\\
-&\therefore \lambda_{MLE}=\frac{n}{\sum_{i=1}^nx_i}
-\end{aligned}
-$$
-```{r}
+## -----------------------------------------------------------------------------
 f <- function(x,i){
   t<- x[i]
   12/sum(t)
@@ -580,12 +366,8 @@ air<- as.vector(aircondit$hours)
 obj<- boot(data = air,statistic = f,R= 2000)
 obj
 print(boot.ci(obj,type = c("basic","norm","perc","bca")))
-```
-we can see the normal intervals is quite different with others,because the data is not come from a norm distribution.the basic way is not very accurate because wo do not know the distribution of $\lambda$'s estimation.and the per and bca way is more accurate than the others,because they are the quantities of bootstrap results,and bca has bias modification and adjusted for acceleration.
 
-## 7.8
-
-```{r}
+## -----------------------------------------------------------------------------
 scorm<- as.matrix(scor)
 M<-cov(scorm)
 t<- eigen(M)$val
@@ -603,11 +385,8 @@ for (i in 1:n) {
 bias<- (n-1)*(mean(thetajack)-thetahat)
 se<- sqrt((n-1)*mean((thetajack-mean(thetajack))^2))
 cat("this is bias and se:",bias,se)
-```
 
-## 7.11
-
-```{r}
+## -----------------------------------------------------------------------------
 library(DAAG)
 magnetic<- ironslag[,2]
 chemical<- ironslag[,1]
@@ -645,15 +424,8 @@ for (i in 2:n) {
 }
 cat("these are four modoel's estimate error:",sum(e1)/1378,sum(e2)/1378,sum(e3)/1378,
     sum(e4)/1378)
-```
-so the result is the same as "leave one out", the second model is more suitable.
 
-# 11.10
-
-## 8.3
-
-利用不放回抽样，然后置换抽样，抽取比较适合count5检验的样本大小。
-```{r}
+## -----------------------------------------------------------------------------
 count5test<- function(x,y){
   X<- x-mean(x)
   Y<- y-mean(y)
@@ -677,11 +449,8 @@ count5<- function(x,y,B){
   return((1+sum(I))/(B+1))
 }
 count5(x,y,1000)
-```
 
-## discussion
-
-```{r}
+## -----------------------------------------------------------------------------
 library(Ball)
 library(energy)
 library(boot)
@@ -805,13 +574,8 @@ alpha <- 0.1;
 pow6 <- colMeans(p6.values<alpha)
 pow6#不平衡样本
 
-```
 
-# 11.17
-
-## 9.4
-
-```{r}
+## -----------------------------------------------------------------------------
 la.Me<- function(sigma,x_0,N){
   x<- numeric(N)#链
   x[1]<- x_0
@@ -836,11 +600,8 @@ plot(la2$x,type = "l",col=2)
 plot(la3$x,type = "l",col=3)
 plot(la4$x,type = "l",col=4)
 print(c(la1$k/2000,la2$k/2000,la3$k/2000,la4$k/2000))
-```
 
-## Gelman-Rubin for 9.4
-
-```{r}
+## -----------------------------------------------------------------------------
 #定义Gelman-Rubin函数
 Gel<- function(psi){
   psi<- as.matrix(psi)
@@ -874,13 +635,8 @@ for (i in 1:l) {
 }
 plot(r,Gelresult,type = 'l')
 abline(h=1.2,col=2)
-```
 
-估计在n大于4300后稳定在1.2下
-
-## 11.4
-
-```{r}
+## -----------------------------------------------------------------------------
 a<- c(4:25,100,500,1000)
 result<- numeric(length(a))
 for (i in 1:25) {
@@ -890,13 +646,8 @@ for (i in 1:25) {
 }
 data.frame(cbind(a,result))
 
-```
 
-# 11.24
-
-# ME
-
-```{r}
+## -----------------------------------------------------------------------------
 L <- c(0.01,0.1) #initial estimation
 tol <- .Machine$double.eps^0.5
 L.old<- L
@@ -935,11 +686,8 @@ f<- function(lam){
 }
 #极大似然估计
 optim(c(0.3,0.1),f)$par
-```
 
-## p204 3
-
-```{r}
+## -----------------------------------------------------------------------------
 f <- list(
   mpg ~ disp,
   mpg ~ I(1 / disp),
@@ -953,22 +701,16 @@ for (i in 1:4) {
 }
 
 lapply(f,function(x){lm(x,data = mtcars)})
-```
 
-## p213 3
-
-```{r}
+## -----------------------------------------------------------------------------
 trials <- replicate(
   100,
   t.test(rpois(10, 10), rpois(7, 10)),
   simplify = FALSE
 )
 sapply(trials, function(x){return(x$p.value)})
-```
 
-## p214 6
-
-```{r}
+## -----------------------------------------------------------------------------
 lapply1<-function(X,funct,t){
   Map(function(x){vapply(x, funct,t)},X)
 } 
@@ -986,11 +728,8 @@ trials1 <- replicate(
 X<- list(trials,trials1)
 lapply1(X,function(x){return(x$p.value)},numeric(1))
 #函数输出效果
-```
 
-## 1
-
-```{r}
+## -----------------------------------------------------------------------------
 library(StatComp20089)
 
 sigma=1
@@ -1018,32 +757,15 @@ x2=cla(sigma,x_0,N)
 
 plot(x1,col="red",type="l",ylab="point")
 plot(x2,col="green",type="l",ylab="point")
-```  
 
-红色图是R，绿色是rcpp。   
-
-## 2
-
-```{r}
+## -----------------------------------------------------------------------------
 Rf = x1[-(1:500)]
 Rcppf = x2[-(1:500)]
 qqplot(Rf,Rcppf)
 abline(a=0,b=1,col='red')
-```  
 
-发现基本在对角线上分布，所以可以认为同分布。  
-
-## 3
-
-```{r}
+## -----------------------------------------------------------------------------
 library(microbenchmark)
 
 (time = microbenchmark(Rf=la.Me(2,0,2000)$x,Rcppf=cla(sigma,x_0,N)))
-```
-## 4
-
-可以看出来rcpp和r得到的结果基本一致，但是rcpp的速度更加快。
-
-
-
 

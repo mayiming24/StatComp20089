@@ -1,0 +1,38 @@
+library(mvtnorm)
+library(mixtools)
+N<-100
+pi<- c(0.4,0.6)
+pi.old<-pi
+u1<- c(3.48,70)
+u2<- c(3.48,70)
+u<-rbind(u1,u2)
+n<- nrow(faithful)
+sig1<- matrix(c(0.3,0,0,4),nrow = 2,byrow = T)
+sig2<- matrix(c(0.4,0,0,4),nrow = 2,byrow = T)
+sig<-list(sig1,sig2)
+z<- matrix(0,2,n)
+y<- as.matrix(faithful)
+for (j in 1:N) {
+  for (k in 1:n) {
+    for (i in 1:2) {
+      z[i,k]<- pi[i]*dmvnorm(y[k,],u[i,],sig[[i]])/(pi[1]*dmvnorm(y[k,],u[1,],sig[[1]])+pi[2]*dmvnorm(y[k,],u[2,],sig[[2]]))
+    }
+  }
+  pi<- rowMeans(z)
+  u<- z%*%y/(n*pi)
+  sigma1<-matrix(0,2,2)
+  for (k in 1:n) {
+    sigma1<-sigma1+ z[1,k]*(y[k,]-u1)%*%t(y[k,]-u1)
+  }
+  sigma1<- (1/sum(z[1,]))*sigma1
+  sigma2<-matrix(0,2,2)
+  for (k in 1:n) {
+    sigma2<-sigma2+ z[2,k]*(y[k,]-u2)%*%t(y[k,]-u2)
+  }
+  sigma2<- (1/sum(z[2,]))*sigma2
+  sig<-list(sigma1,sigma2)
+  if(sum(abs(pi.old-pi))<1e-9)break
+  pi.old<-pi
+}
+out<-list(iter=j,pi=pi,mean=u,sigma=sig)
+print(out)
