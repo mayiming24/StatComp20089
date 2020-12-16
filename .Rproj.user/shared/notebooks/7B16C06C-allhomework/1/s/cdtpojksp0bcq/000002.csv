@@ -1,0 +1,6 @@
+"0","library(readxl)"
+"0","tab <- read_excel(""C:/rlearn/生产总值.xls"",sheet=1)"
+"2","New names:
+* `` -> ...1
+"
+"0","knitr::kable(tab)"

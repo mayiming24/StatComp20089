@@ -1,0 +1,2 @@
+"0","tab <- faithful"
+"0","knitr::kable(tab)"

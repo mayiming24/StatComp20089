@@ -2,6 +2,13 @@
 #' @name test
 #' @description just for test Rcpp function
 #' @importFrom Rcpp evalCpp
+#' @importFrom Ball bd.test
+#' @import DAAG
+#' @importFrom MASS mvrnorm
+#' @importFrom RANN nn2
+#' @importFrom boot boot
+#' @import bootstrap
+#' @importFrom energy eqdist.etest
 #' @useDynLib StatComp20089
 #' @examples
 #' \dontrun{
@@ -79,7 +86,7 @@ nkesplot<- function(y,N,h){
 #'
 #' @param N2 the width of estimate of col2
 #' @return a pic
-#'
+#' @importFrom graphics persp
 #' @examples  \dontrun{
 #' n2kesplot(as.matrix(faithful),0.5,3,200,200)
 #' }

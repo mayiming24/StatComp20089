@@ -1,0 +1,27 @@
+"0","library(bootstrap)"
+"0","library(boot)"
+"2","
+‘ÿ»Î≥Ãº≠∞¸£∫°Æboot°Ø
+
+"
+"2","The following object is masked from °Æpackage:lattice°Ø:
+
+    melanoma
+
+"
+"0","corhat<- cor(law$LSAT,law$GPA)"
+"0","n<- nrow(law)"
+"0","corjack<- 1:n "
+"0","for (i in 1:n) {"
+"0","  LAST<- law$LSAT[-i]"
+"0","  GPA<- law$GPA[-i]"
+"0","  corjack[i]<- cor(LAST,GPA)"
+"0","}"
+"0","corbias<- (n-1)*(mean(corjack)-corhat)"
+"0","se<- sqrt((n-1)*mean((corjack-mean(corjack))^2))"
+"0","cat(""This is jacknife's bias and standard error:"",corbias,se)"
+"1","This is jacknife's bias and standard error:"
+"1"," "
+"1","-0.006473623"
+"1"," "
+"1","0.1425186"

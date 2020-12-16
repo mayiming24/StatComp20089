@@ -11,23 +11,22 @@ vignette: >
 # 9.22
 
 ## Example 1
+
 ```{r}
 x<-runif(10,1,10)
 y<-runif(10,2,6)
 plot(x,y,xlab = "ten random values",ylab = "ten other random values",bg="blue",pch=22)
 ```
 
-
 ## Example 2
 
 ```{r}
-tab <- readxl::read_excel("C:/rlearn/生产总值.xls",sheet=1)
+tab <- faithful
 knitr::kable(tab)
 ```
 这是季度生产总值和产业结构的表格，数据来自中宏数据库
 
 ## Example 3
-
 
 如果我们定义风险的市场价格为
   $$
@@ -46,6 +45,7 @@ $$
 # 9.29
 
 ## Exercise 3.3
+
 ```{r}
 n<-5000
 u<-runif(n)
@@ -56,7 +56,6 @@ lines(y,8*y^-3,col="red")
 ```
 
 通过比较频率直方图和密度图发现基本吻合
-
 
 ## Exercise 3.8 3.9
 ```{r}
@@ -86,8 +85,8 @@ lines(y,0.75*(1-y^2),col="red")
 
 发现密度曲线和大模拟样本直方图比较接近，可以认为该算法符合密度函数。
 
-
 ## Exercise 3.9
+
 证明：
 我们假定输出结果为一个新的随机变量$U$，现在即要证明$\textit{P}(U=x)=\frac{3}{4}\left(1-x^{2}\right)$,将该算法各种情况分开考虑
 $$
@@ -100,6 +99,7 @@ $$
 
 ## 5.1
 考虑是$g(x)=\frac{\pi}{3}sinx$对于$[0,\frac{\pi}{3}]$上的均匀分布的期望
+
 ```{r}
 set.seed(12345)
 m<- 1e5
@@ -107,10 +107,12 @@ x<- runif(m,min=0,max= pi/3)
 M<- mean(sin(x))*pi/3
 print(c(M,1-cos(pi/3)))
 ```
+
 这说明蒙特卡洛估计和积分的精确值很接近。
 
 
 ## 5.6
+
 可以计算得到如下结果
 $$
 \begin{align}
@@ -150,12 +152,13 @@ M1<- mean(exp(X))
 M2<- mean(0.5*exp(Y)+0.5*exp(1-Y))
 V1<- var(X_1)
 V2<- var(Y_1)
-cat("这是简单蒙特卡洛方法的结果和方差:",M1,V1)
-cat("这是采用对偶变量的方法的结果和方差:",M2,V2)
+cat(M1,V1)
+cat(M2,V2)
 ```
 可以计算出模拟得到的消除方差比率为0.9838。这和理论值非常吻合
 
 ## 5.11
+
 假设$\hat{\theta_1}$和$\hat{\theta_2}$是$\theta$的两个无偏估计，那么易知$\hat{\theta_c}=\hat{\theta_1}+(1-c)\hat{\theta_2}$也是一个无偏估计量。那么他的方差可以计算得到
 $$
 \begin{align}
@@ -172,6 +175,7 @@ $$
 ## 5.13 
 
 首先先画出$g(x)$的图象
+
 ```{r}
 x<- seq(1.05,3,.01)
 g<- function(x){
@@ -181,8 +185,9 @@ y<- g(x)
 plot(x,y,lwd=2,type = "l")
 ```
 
-
 推测正态分布和参数是3的卡方分布是比较好的重要函数
+
+
 ```{r}
 set.seed(123)
 zt<- rnorm(500000,0,1)
@@ -193,8 +198,8 @@ g1<- mean(fg_1)
 se1<- sd(fg_1)
 g2<- mean(fg_2)
 se2<- sd(fg_2)
-cat("重要函数取正态分布的结果和标准差:" ,g1 ,se1)
-cat("重要函数取卡方分布的结果和标准差:" ,g2 ,se2)
+cat(g1 ,se1)
+cat(g2 ,se2)
 print(integrate(g,1,Inf)) #这是标准的结果
 ```
 综上，发现用卡方分布做重要函数是比较好的，结果准确且方差小。
@@ -202,6 +207,7 @@ print(integrate(g,1,Inf)) #这是标准的结果
 ## 5,15
 
 考虑密度函数为$f(x)=\frac{5e^{-x}}{1-e^{-1}}$,那么考虑五个等概率的区间，分别对五个区间进行重要抽样相加就是估计值，方差是各部分的方差相加
+
 ```{r}
 g1<- function(x){
   (exp(-x)/(1+x^2))*(x>0)*(x<1)
@@ -215,16 +221,18 @@ for (i in 1:5) {
   result[i,1]<- mean(fg)
   result[i,2]<- var(fg)
 }
-cat("分层重要抽样的结果是:",sum(result[,1])) 
-cat("分层重要抽样的方差是:",sum(result[,2]))
+cat(sum(result[,1])) 
+cat(sum(result[,2]))
 print(integrate(g1,0,1)) #求一个积分的标准值
 ```
+
 通过比较发现，分层重要抽样无论是结果还是方差都要更优。
 
 ## 6.4
 
 先从参数为0；1的对数正态分布中抽样，再计算$\mu$理论上95%的置信区间,再计算这些区间包含
 0的频率，和95%进行比较。
+
 ```{r}
 w<- 0
 n<- 20
@@ -239,6 +247,7 @@ for (i in 1:10000) {
 }
 t/10000
 ```
+
 发现构造的置信区间的置信系数比较吻合理论。
 
 ## 6.5
@@ -257,12 +266,15 @@ for (i in 1:10000) {
 }
 t/10000
 ```
+
 发现相比样本来自正态分布的置信系数低一些，但是相比书上方差区间的0.773，没有方差那么敏感，更稳定一些。
 
 # 10.27
 
 ## 6.7
+
 首先我么定义求样本偏度的函数
+
 ```{r}
 sk<- function(x){
   xbar<- mean(x)
@@ -271,6 +283,7 @@ sk<- function(x){
   return(m3/m2^1.5)
 }
 ```
+
 下面循环MC模拟求不同参数下的分布的$\alpha1=\alpha2=\alpha$的beta分布的犯第一类错误，置信水平此时固定为0.05
 
 ```{r}
@@ -346,7 +359,9 @@ count5test<- function(x,y){
   return(as.integer(max(c(outy,outx))>5))
 }
 ```
+
 由数理统计知识，我们指导F检验对于两个正态分布进行等方差检验是一个很好的方法，下面定义F检验函数
+
 ```{r}
 Ftest<- function(x,y){
   xl<- length(x)
@@ -357,6 +372,7 @@ Ftest<- function(x,y){
   return(as.integer(T<qf(0.055/2,xl-1,yl-2)|T>qf(1-0.055/2,xl-1,yl-1)))
 }
 ```
+
 那么接下来对不同大小样本分布进行count5和F检验。
 
 ### 小样本
@@ -379,8 +395,8 @@ minpowerF<-mean(replicate(rnum,expr = {
   Ftest(x,y)
 })
 )
-cat("这是小样本count5检验的功效",minpowercount5)
-cat("这是小样本F检验的功效",minpowerF)
+cat(minpowercount5)
+cat(minpowerF)
 ```
 
 ### 中样本
@@ -403,11 +419,12 @@ midpowerF<-mean(replicate(rnum,expr = {
   Ftest(x,y)
 })
 )
-cat("这是中样本count5检验的功效",midpowercount5)
-cat("这是中样本F检验的功效",midpowerF)
+cat(midpowercount5)
+cat(midpowerF)
 ```
 
 ### 大样本
+
 ```{r}
 n3<-100
 rnum<-200
@@ -426,9 +443,10 @@ maxpowerF<-mean(replicate(rnum,expr = {
   Ftest(x,y)
 })
 )
-cat("这是中样本count5检验的功效",maxpowercount5)
-cat("这是中样本F检验的功效",maxpowerF)
+cat(maxpowercount5)
+cat(maxpowerF)
 ```
+
 这说明F检验的功效函数样本数量越大功效增长越快。
 
 ## 6.C
@@ -450,6 +468,7 @@ cv
 ```
 
 下面定义计算多维样本偏度统计量的计算函数
+
 ```{r}
 library(MASS)
 msk<- function(x){#x是一个n*d的矩阵，代表n个d维样本
@@ -482,10 +501,11 @@ for (i in 1:5) {
   }
   pM[i]<- mean(msktests)
 }
-cat("这是对应的模拟置信系数",pM)
+cat(pM)
 ```
 
 下面对污染的多元正态分布的参数，计算多元偏度卡方检验的功效。
+
 ```{r}
 n<-30
 m<-200
@@ -517,6 +537,7 @@ for (i in 1:el) {
  plot(epsilon,mskpwr,type = "l",ylim = c(0,0.5))
  abline(h= 0.1,col="blue")
 ```
+
 可以发现，在$\epsilon$等于0或者1时，是很接近预先设定的0.1置信系数，这是因为在0或1时，是一个标准正态。
 
 ## Disscusion
@@ -546,8 +567,8 @@ cat(qnorm(0.025,0.025,S),qnorm(0.975,0.025,S))
 ## 7.1
 
 ```{r}
-library(boot)
 library(bootstrap)
+library(boot)
 corhat<- cor(law$LSAT,law$GPA)
 n<- nrow(law)
 corjack<- 1:n 
@@ -581,6 +602,7 @@ obj<- boot(data = air,statistic = f,R= 2000)
 obj
 print(boot.ci(obj,type = c("basic","norm","perc","bca")))
 ```
+
 we can see the normal intervals is quite different with others,because the data is not come from a norm distribution.the basic way is not very accurate because wo do not know the distribution of $\lambda$'s estimation.and the per and bca way is more accurate than the others,because they are the quantities of bootstrap results,and bca has bias modification and adjusted for acceleration.
 
 ## 7.8
@@ -920,10 +942,10 @@ for (i in 1:N) {
   L.old<-L
 }
 for (j in 1:i) {
-  cat(j,'次')
+  cat(j)
   print('似然比：')
   print(like[j])
-  print('p,q的估计')
+  print('p,q')
   print(pq[j,])
 }
 
