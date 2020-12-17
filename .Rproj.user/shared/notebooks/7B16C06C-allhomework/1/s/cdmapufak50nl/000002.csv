@@ -1,0 +1,7 @@
+"0","count5test<- function(x,y){"
+"0","  X<- x-mean(x)"
+"0","  Y<- y-mean(y)"
+"0","  outx<- sum(X>max(Y))+sum(X<min(Y))"
+"0","  outy<- sum(Y>max(X))+sum(Y<min(X))"
+"0","  return(as.integer(max(c(outy,outx))>5))"
+"0","}"

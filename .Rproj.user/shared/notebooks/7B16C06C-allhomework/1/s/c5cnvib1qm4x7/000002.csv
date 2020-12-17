@@ -1,0 +1,6 @@
+"0","sk<- function(x){"
+"0","  xbar<- mean(x)"
+"0","  m3<- mean((x-xbar)^3)"
+"0","  m2<- mean((x-xbar)^2)"
+"0","  return(m3/m2^1.5)"
+"0","}"

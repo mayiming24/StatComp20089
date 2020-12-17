@@ -1,0 +1,8 @@
+"0","a<- c(4:25,100,500,1000)"
+"0","result<- numeric(length(a))"
+"0","for (i in 1:25) {"
+"0","  k<-a[i]"
+"0","  s<- function(a){pt(sqrt((k-1)*a^2/(k-a^2)),k-1)-pt(sqrt(k*a^2/(k+1-a^2)),k)}"
+"0","  result[i]<- uniroot(s,interval = c(0.01,sqrt(k)-0.01))$root"
+"0","}"
+"0","data.frame(cbind(a,result))"

@@ -1,0 +1,1 @@
+{"frames":[{"func":"f()","file":"","line_number":0,"end_line_number":0,"character_number":0,"end_character_number":0}],"message":"Error in f() : 缺少参数\"x\",也没有缺省值\n"}

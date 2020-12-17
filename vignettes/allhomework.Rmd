@@ -142,8 +142,8 @@ $$
 
 ```{r}
 set.seed(2333)
-m1<- 2000000
-m2<- 2000000
+m1<- 200000
+m2<- 200000
 X<- runif(m1,min = 0,max = 1)
 Y<- runif(m2,min = 0,max = 1)
 X_1<-exp(X)
@@ -190,8 +190,8 @@ plot(x,y,lwd=2,type = "l")
 
 ```{r}
 set.seed(123)
-zt<- rnorm(500000,0,1)
-kf<- rchisq(500000,3)
+zt<- rnorm(50000,0,1)
+kf<- rchisq(50000,3)
 fg_1<- g(zt)/dnorm(zt)
 fg_2<- g(kf)/dchisq(kf,3)
 g1<- mean(fg_1)
@@ -491,8 +491,8 @@ n<-c(10,20,30,50,100)
 pM<- 1:5
 Sigma <- matrix(c(1,0,0,1),2,2)
 for (i in 1:5) {
-  msktests<- 1:1000
-  for (j in 1:1000) {
+  msktests<- 1:100
+  for (j in 1:100) {
     x<- mvrnorm(n[i], rep(0, 2), Sigma)
     v<- msk(x)
     if(v<cv[i,1]|v>cv[i,2])
@@ -708,13 +708,13 @@ library(Ball)
 library(energy)
 library(boot)
 library(RANN)
-m<- 100
+m<- 10
 k<- 3
 p<- 2
 mu<- 0.3
 set.seed(233)
 n1<-n2<- 50
-R<- 999
+R<- 99
 n<- n1+n2
 N<- c(n1,n2)
 Tn <- function(z, ix, sizes,k) {
@@ -883,7 +883,7 @@ las<- function(n,sigma,x_0,N){
   }
   return(data)
 }
-r<- seq(500,10000,by= 100)
+r<- seq(500,10000,by= 500)
 l<- length(r)
 Gelresult<-numeric(l)
 for (i in 1:l) {

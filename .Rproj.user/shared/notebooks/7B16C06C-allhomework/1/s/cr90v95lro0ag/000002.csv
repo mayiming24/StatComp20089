@@ -1,0 +1,8 @@
+"0","Ftest<- function(x,y){"
+"0","  xl<- length(x)"
+"0","  yl<- length(y)"
+"0","  sx<- var(x)"
+"0","  sy<- var(y)"
+"0","  T<- sy/sx"
+"0","  return(as.integer(T<qf(0.055/2,xl-1,yl-2)|T>qf(1-0.055/2,xl-1,yl-1)))"
+"0","}"

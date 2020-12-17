@@ -1,0 +1,22 @@
+logdate<-log(state.x77)
+
+pca<- function(x){
+  cordata<- cor(x)
+  r<- eigen(cordata)
+  s<-r$values
+  contribrate<- numeric(length(s))
+  for (i in 1:length(s)) {
+    contribrate[i]<- s[i]/sum(s)
+  }
+  t=0
+  j=0
+  while (t<0.85) {
+    t=t+contribrate[j+1]
+    j=j+1
+  }
+  r<-list(values=s[c(1:j)],contributerates=contribrate[c(1:j)],vectors=vectors[,c(1:j)])
+  print(r)
+  plot(s,type='l',xlab='i',ylab='lambda')
+}
+
+pca(state.x77)

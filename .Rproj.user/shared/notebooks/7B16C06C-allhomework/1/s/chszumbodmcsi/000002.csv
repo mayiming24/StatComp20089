@@ -1,4 +1,66 @@
-"0",""
-"0","magnetic<- ironslag[,2]"
-"2","é”™è¯¯: æ‰¾ä¸åˆ°å¯¹è±¡'ironslag'
+"0","library(DAAG)"
+"2","ÔØÈëÐèÒªµÄ³Ì¼­°ü£ºlattice
 "
+"2","
+ÔØÈë³Ì¼­°ü£º¡®lattice¡¯
+
+"
+"2","The following object is masked from ¡®package:boot¡¯:
+
+    melanoma
+
+"
+"2","
+ÔØÈë³Ì¼­°ü£º¡®DAAG¡¯
+
+"
+"2","The following object is masked from ¡®package:MASS¡¯:
+
+    hills
+
+"
+"0","magnetic<- ironslag[,2]"
+"0","chemical<- ironslag[,1]"
+"0","n<- length(magnetic)"
+"0","e1 <- e2 <- e3 <- e4<- matrix(0,n,n)"
+"0","for (i in 2:n) {"
+"0","  for (j in 1:i-1){"
+"0","    y<- magnetic[-c(i,j)]"
+"0","    x<- chemical[-c(i,j)]"
+"0","    "
+"0","    J1<-lm(y ~ x)"
+"0","    yhat1i<- J1$coef[1]+J1$coef[2] * chemical[i]"
+"0","    yhat1j<- J1$coef[1]+J1$coef[2] * chemical[j]"
+"0","    e1[i,j]<- ((magnetic[i]-yhat1i)^2+(magnetic[j]-yhat1j)^2)/2"
+"0","    "
+"0","    J2<- lm(y ~ x + I(x^2))"
+"0","    yhat2i<- J2$coef[1]+J2$coef[2]*chemical[i]+J2$coef[3]*chemical[i]^2"
+"0","    yhat2j<- J2$coef[1]+J2$coef[2]*chemical[j]+J2$coef[3]*chemical[j]^2"
+"0","    e2[i,j]<- ((magnetic[i]-yhat2i)^2+(magnetic[j]-yhat2j)^2)/2"
+"0",""
+"0","    J3<- lm(log(y) ~ x)"
+"0","    logyhat3i<- J3$coef[1]+J3$coef[2]*chemical[i]"
+"0","    logyhat3j<- J3$coef[1]+J3$coef[2]*chemical[j]"
+"0","    yhat3i<-exp(logyhat3i)"
+"0","    yhat3j<-exp(logyhat3j)"
+"0","    e3[i,j]<- ((magnetic[i]-yhat3i)^2+(magnetic[j]-yhat3j)^2)/2"
+"0",""
+"0","    J4<- lm(log(y) ~ log(x))"
+"0","    logyhat4i<- J4$coef[1]+J4$coef[2]*log(chemical[i])"
+"0","    logyhat4j<- J4$coef[1]+J4$coef[2]*log(chemical[j])"
+"0","    yhat4i<- exp(logyhat4i)"
+"0","    yhat4j<- exp(logyhat4j)"
+"0","    e4[i,j]<- ((magnetic[i]-yhat4i)^2+(magnetic[j]-yhat4j)^2)/2"
+"0","  }"
+"0","}"
+"0","cat(""these are four modoel's estimate error:"",sum(e1)/1378,sum(e2)/1378,sum(e3)/1378,"
+"0","    sum(e4)/1378)"
+"1","these are four modoel's estimate error:"
+"1"," "
+"1","19.57227"
+"1"," "
+"1","17.87018"
+"1"," "
+"1","18.45491"
+"1"," "
+"1","20.46718"
