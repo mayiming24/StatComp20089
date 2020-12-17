@@ -1,0 +1,2 @@
+devtools::install_github("mayiming24/StatComp20089",build_vignettes = TRUE,force=T)
+devtools::install_github("Boomwwe/StatComp20048",build_vignettes = TRUE,force=T)
